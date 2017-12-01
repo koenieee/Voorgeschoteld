@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,10 +25,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src\main.cpp \
-        src\voorgeschoteldwindow.cpp
+        src\voorgeschoteldwindow.cpp \
+    src/retrievebusinformation.cpp \
+    src/globalvoorgeschoteldvalues.cpp \
+    src/processhtmldata.cpp
 
 HEADERS += \
-        src\voorgeschoteldwindow.h
+        src\voorgeschoteldwindow.h \
+    src/retrievebusinformation.h \
+    src/globalvoorgeschoteldvalues.h \
+    src/processhtmldata.h
 
 FORMS += \
         ui\voorgeschoteldwindow.ui
+
+
+
+win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../OpenSSL-Win64/lib/ -llibssl
+
+INCLUDEPATH += $$PWD/../../../../OpenSSL-Win64/include
+DEPENDPATH += $$PWD/../../../../OpenSSL-Win64/include

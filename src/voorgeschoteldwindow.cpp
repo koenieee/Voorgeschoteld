@@ -8,6 +8,8 @@ VoorgeschoteldWindow::VoorgeschoteldWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 
+
+
 VoorgeschoteldWindow::~VoorgeschoteldWindow()
 {
     delete ui;
