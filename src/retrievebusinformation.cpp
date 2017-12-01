@@ -3,6 +3,7 @@
 #include <QtNetwork>
 #include <QObject>
 #include <QNetworkAccessManager>
+#include <QJsonDocument>
 #include "processhtmldata.h"
 
 
@@ -17,7 +18,7 @@ void RetrieveBusInformation::makeRequest(){
 
         QUrl url(m_busInformationUrl);
         QNetworkRequest request;
-        request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
+       // request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
         request.setUrl(url);
 
 
@@ -38,13 +39,41 @@ void RetrieveBusInformation::doneRequest(QNetworkReply * reply){
     {
         data = QString(reply->errorString ());
     }
-    data.remove(QChar('\\'), Qt::CaseInsensitive);
+
+    QStringList propertyNames;
+    QStringList propertyKeys;
+
+    QJsonDocument jsonResponse = QJsonDocument::fromJson(data.toUtf8());
+    QJsonObject jsonObject = jsonResponse.object();
+    QJsonObject jsonArray = jsonObject["amfcol"].toObject();
+QJsonObject passes = jsonArray["50421690"].toObject();
+QJsonObject haltes = passes["Passes"].toObject();
+
+
+    QJsonDocument doc;
+    doc.setObject(haltes);
+
+    QString dataToString(doc.toJson());
+    qDebug().noquote() << "Array: " << dataToString.toLatin1();
+
+    foreach (const QJsonValue & value, haltes) {
+        QJsonObject info = value.toObject();
+        QString lineNumber = info["LinePublicNumber"].toString();
+        QString destinationName = info["DestinationName50"].toString();
+        qDebug().noquote() << "Naam: " <<destinationName;
+
+    }
+
+
+   // qDebug() << propertyNames;
+
+    /*data.remove(QChar('\\'), Qt::CaseInsensitive);
      data.remove(QChar('\n'), Qt::CaseInsensitive);
     data.trimmed();
- //   qDebug() << "Data was:" << "leeg";
+    qDebug() << "Data was:" << data;
    // qDebug() << "Printing data: " << data;
-    m_htmlParser.processData(data);
-
+   // m_htmlParser.processData(data);
+*/
 
 }
 

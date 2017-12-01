@@ -38,10 +38,3 @@ HEADERS += \
 
 FORMS += \
         ui\voorgeschoteldwindow.ui
-
-
-
-win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../OpenSSL-Win64/lib/ -llibssl
-
-INCLUDEPATH += $$PWD/../../../../OpenSSL-Win64/include
-DEPENDPATH += $$PWD/../../../../OpenSSL-Win64/include
