@@ -28,13 +28,16 @@ SOURCES += \
         src\voorgeschoteldwindow.cpp \
     src/retrievebusinformation.cpp \
     src/globalvoorgeschoteldvalues.cpp \
-    src/processhtmldata.cpp
+    src/processbusdata.cpp \
+    ui/displayallbusinformation.cpp
 
 HEADERS += \
         src\voorgeschoteldwindow.h \
     src/retrievebusinformation.h \
     src/globalvoorgeschoteldvalues.h \
-    src/processhtmldata.h
+    src/processbusdata.h \
+    ui/displayallbusinformation.h
 
 FORMS += \
-        ui\voorgeschoteldwindow.ui
+        ui\voorgeschoteldwindow.ui \
+    ui/displayallbusinformation.ui

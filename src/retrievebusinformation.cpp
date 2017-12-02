@@ -4,10 +4,14 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
-#include "processhtmldata.h"
+#include "processbusdata.h"
 
 
-RetrieveBusInformation::RetrieveBusInformation()
+RetrieveBusInformation::RetrieveBusInformation(QString busStopCode, QString busInfoUrl, QObject * parent):
+    m_busParser(busStopCode),
+    m_busStopCode(busStopCode),
+    m_busInformationUrl(busInfoUrl),
+    QObject(parent)
 {
     connect(&m_networkManager, &QNetworkAccessManager::finished, this, &RetrieveBusInformation::doneRequest);
 
@@ -16,12 +20,9 @@ RetrieveBusInformation::RetrieveBusInformation()
 void RetrieveBusInformation::makeRequest(){
     if(!m_busInformationUrl.isEmpty()){
 
-        QUrl url(m_busInformationUrl);
+        QUrl url(m_busInformationUrl + "/" + m_busStopCode);
         QNetworkRequest request;
-       // request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
         request.setUrl(url);
-
-
         m_networkManager.get(request);
 
     }
@@ -29,54 +30,25 @@ void RetrieveBusInformation::makeRequest(){
 
 
 void RetrieveBusInformation::doneRequest(QNetworkReply * reply){
-  //  qDebug() << "DoneRequest:: is called" << reply->hasRawHeader("GET");
-    QString data = "leeg";
+    QString data;
+
     if (reply->error() == QNetworkReply::NoError)
     {
+        //process data only when there are no errors.
         data = QString(reply->readAll ());
+        m_currentBusInformationData = m_busParser.processData(data);
+        qDebug() << "Emitting";
+        emit busDataIsHere(m_currentBusInformationData);
     }
     else
     {
         data = QString(reply->errorString ());
     }
-
-    QStringList propertyNames;
-    QStringList propertyKeys;
-
-    QJsonDocument jsonResponse = QJsonDocument::fromJson(data.toUtf8());
-    QJsonObject jsonObject = jsonResponse.object();
-    QJsonObject jsonArray = jsonObject["amfcol"].toObject();
-QJsonObject passes = jsonArray["50421690"].toObject();
-QJsonObject haltes = passes["Passes"].toObject();
-
-
-    QJsonDocument doc;
-    doc.setObject(haltes);
-
-    QString dataToString(doc.toJson());
-    qDebug().noquote() << "Array: " << dataToString.toLatin1();
-
-    foreach (const QJsonValue & value, haltes) {
-        QJsonObject info = value.toObject();
-        QString lineNumber = info["LinePublicNumber"].toString();
-        QString destinationName = info["DestinationName50"].toString();
-        qDebug().noquote() << "Naam: " <<destinationName;
-
-    }
-
-
-   // qDebug() << propertyNames;
-
-    /*data.remove(QChar('\\'), Qt::CaseInsensitive);
-     data.remove(QChar('\n'), Qt::CaseInsensitive);
-    data.trimmed();
-    qDebug() << "Data was:" << data;
-   // qDebug() << "Printing data: " << data;
-   // m_htmlParser.processData(data);
-*/
-
 }
 
+QList<BusInformationData> RetrieveBusInformation::getAllBusInfo(){
+    return m_currentBusInformationData;
+}
 
 void RetrieveBusInformation::setBusStopCode(QString busStopCode){
     m_busStopCode = busStopCode;

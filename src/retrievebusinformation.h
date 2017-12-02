@@ -4,14 +4,14 @@
 #include <QNetworkAccessManager>
 #include <QtNetwork>
 #include <QObject>
-#include "processhtmldata.h"
+#include "processbusdata.h"
 
 class RetrieveBusInformation : public QObject
 {
     Q_OBJECT
 
 public:
-    RetrieveBusInformation();
+    RetrieveBusInformation(QString busStopCode, QString busInfoUrl, QObject *parent = nullptr);
 
     void setBusStopCode(QString busStopCode);
     void setBusInformationUrl(QString busUrl);
@@ -20,15 +20,21 @@ public:
 
     QString getBusInformationUrl() const;
     QString getBusStopCode() const;
+    QList<BusInformationData> getAllBusInfo();
+
+signals:
+    void busDataIsHere(QList<BusInformationData> bdd);
 
 public slots:
     void doneRequest(QNetworkReply * reply);
+
 
 private:
     QNetworkAccessManager   m_networkManager;
     QString                 m_busStopCode;
     QString                 m_busInformationUrl;
-    ProcessHtmlData         m_htmlParser;
+    ProcessBusData          m_busParser;
+    QList<BusInformationData> m_currentBusInformationData;
 
 
 };

@@ -6,7 +6,8 @@
 class GlobalVoorgeschoteldValues
 {
 public:
-    static const QString busStop;
+    static const QString busStopRight;
+    static const QString busStopLeft;
     static const QString busUrl;
 
 
