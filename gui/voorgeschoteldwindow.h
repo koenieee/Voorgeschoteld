@@ -16,7 +16,7 @@ public:
     ~VoorgeschoteldWindow();
 
 private:
-    Ui::VoorgeschoteldWindow *ui;
+    Ui::VoorgeschoteldWindow *  m_ui;
 };
 
 #endif // VOORGESCHOTELDWINDOW_H

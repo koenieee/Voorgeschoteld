@@ -2,7 +2,7 @@
 #define DISPLAYALLBUSINFORMATION_H
 
 #include <QDialog>
-#include "src/processbusdata.h"
+#include "core/processbusdata.h"
 #include <QStringListModel>
 
 namespace Ui {
@@ -21,9 +21,9 @@ public slots:
     void setAllBusInformation(QList<BusInformationData> bdd);
 
 private:
-    Ui::DisplayAllBusInformation *ui;
-    QList<BusInformationData> m_currentBusData;
-    QStringListModel          m_busModelValues;
+    Ui::DisplayAllBusInformation *  m_ui;
+    QList<BusInformationData>       m_currentBusData;
+    QStringListModel                m_busModelValues;
 };
 
 #endif // DISPLAYALLBUSINFORMATION_H

@@ -3,14 +3,14 @@
 
 VoorgeschoteldWindow::VoorgeschoteldWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::VoorgeschoteldWindow)
+    m_ui(new Ui::VoorgeschoteldWindow)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
 }
 
 
 
 VoorgeschoteldWindow::~VoorgeschoteldWindow()
 {
-    delete ui;
+    delete m_ui;
 }

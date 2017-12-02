@@ -1,7 +1,7 @@
-#include "voorgeschoteldwindow.h"
+#include "gui/voorgeschoteldwindow.h"
 #include "retrievebusinformation.h"
 #include "globalvoorgeschoteldvalues.h"
-#include "ui/displayallbusinformation.h"
+#include "gui/displayallbusinformation.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

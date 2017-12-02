@@ -24,20 +24,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        src\main.cpp \
-        src\voorgeschoteldwindow.cpp \
-    src/retrievebusinformation.cpp \
-    src/globalvoorgeschoteldvalues.cpp \
-    src/processbusdata.cpp \
-    ui/displayallbusinformation.cpp
+        core\main.cpp \
+        gui\voorgeschoteldwindow.cpp \
+    core/retrievebusinformation.cpp \
+    core/globalvoorgeschoteldvalues.cpp \
+    core/processbusdata.cpp \
+    gui/displayallbusinformation.cpp
 
 HEADERS += \
-        src\voorgeschoteldwindow.h \
-    src/retrievebusinformation.h \
-    src/globalvoorgeschoteldvalues.h \
-    src/processbusdata.h \
-    ui/displayallbusinformation.h
+        gui\voorgeschoteldwindow.h \
+    core/retrievebusinformation.h \
+    core/globalvoorgeschoteldvalues.h \
+    core/processbusdata.h \
+    gui/displayallbusinformation.h
 
 FORMS += \
-        ui\voorgeschoteldwindow.ui \
-    ui/displayallbusinformation.ui
+        res\voorgeschoteldwindow.ui \
+    res/displayallbusinformation.ui

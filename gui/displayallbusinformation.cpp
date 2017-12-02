@@ -6,9 +6,9 @@
 DisplayAllBusInformation::DisplayAllBusInformation(QList<BusInformationData> bdi, QWidget *parent) :
     m_currentBusData(bdi),
     QDialog(parent),
-    ui(new Ui::DisplayAllBusInformation)
+    m_ui(new Ui::DisplayAllBusInformation)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
     setAllBusInformation(m_currentBusData);
 
 }
@@ -25,11 +25,11 @@ void DisplayAllBusInformation::setAllBusInformation(QList<BusInformationData> bd
     }
 
     m_busModelValues.setStringList(List);
-    ui->listView->setModel(&m_busModelValues);
+    m_ui->listView->setModel(&m_busModelValues);
 }
 
 
 DisplayAllBusInformation::~DisplayAllBusInformation()
 {
-    delete ui;
+    delete m_ui;
 }
