@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network xml
+QT       += core gui network xml qml quick
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,20 +24,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        core\main.cpp \
-        gui\voorgeschoteldwindow.cpp \
-    core/retrievebusinformation.cpp \
-    core/globalvoorgeschoteldvalues.cpp \
-    core/processbusdata.cpp \
-    gui/displayallbusinformation.cpp
+    core\main.cpp \
+    core/RetrieveBusInformation.cpp \
+    core/ProcessBusData.cpp \
+    gui/DisplayAllBusInformation.cpp \
+    gui/ShowQmlWindow.cpp \
+    core/BusDataModel.cpp
 
 HEADERS += \
-        gui\voorgeschoteldwindow.h \
-    core/retrievebusinformation.h \
-    core/globalvoorgeschoteldvalues.h \
-    core/processbusdata.h \
-    gui/displayallbusinformation.h
+    core/RetrieveBusInformation.h \
+    core/GlobalVoorgeschoteldValues.h \
+    core/ProcessBusData.h \
+    gui/displayallbusinformation.h \
+    gui/ShowQmlWindow.h \
+    core/BusDataModel.h
 
-FORMS += \
-        res\voorgeschoteldwindow.ui \
-    res/displayallbusinformation.ui
+DISTFILES += \
+    qml/displaybusinformation.qml
+
+RESOURCES += \
+    res/voorgeschoteldresources.qrc

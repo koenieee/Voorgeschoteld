@@ -2,7 +2,9 @@
 #include "retrievebusinformation.h"
 #include "globalvoorgeschoteldvalues.h"
 #include "gui/displayallbusinformation.h"
+#include "gui/ShowQmlWindow.h"
 #include <QApplication>
+#include <QtQuick/QQuickView>
 
 int main(int argc, char *argv[])
 {
@@ -10,18 +12,15 @@ int main(int argc, char *argv[])
    // VoorgeschoteldWindow w;
    // w.show();
 
-
+    qmlRegisterType<BusDataModel>("dataModels", 1, 0, "BusDataModel");
 
     RetrieveBusInformation rbi{GlobalVoorgeschoteldValues::busStopLeft, GlobalVoorgeschoteldValues::busUrl};
 
     rbi.makeRequest();
 
-    QList<BusInformationData> currentInfo; //this may be empty...
-
-    DisplayAllBusInformation dbi{currentInfo};
+    DisplayAllBusInformation dbi;
 
     QObject::connect(&rbi, &RetrieveBusInformation::busDataIsHere, &dbi, &DisplayAllBusInformation::setAllBusInformation);
-    dbi.show();
 
     return a.exec();
 }

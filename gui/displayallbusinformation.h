@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include "core/processbusdata.h"
+#include "core/BusDataModel.h"
+#include "gui/ShowQmlWindow.h"
 #include <QStringListModel>
 
 namespace Ui {
@@ -14,7 +16,7 @@ class DisplayAllBusInformation : public QDialog
     Q_OBJECT
 
 public:
-    explicit DisplayAllBusInformation(QList<BusInformationData> bdi, QWidget *parent = 0);
+    explicit DisplayAllBusInformation(QWidget *parent = 0);
     ~DisplayAllBusInformation();
 
 public slots:
@@ -22,8 +24,8 @@ public slots:
 
 private:
     Ui::DisplayAllBusInformation *  m_ui;
-    QList<BusInformationData>       m_currentBusData;
-    QStringListModel                m_busModelValues;
+    BusDataModel           m_qmlData;
+    ShowQmlWindow                   m_qmlWindow;
 };
 
 #endif // DISPLAYALLBUSINFORMATION_H
