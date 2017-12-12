@@ -20,7 +20,7 @@ public:
         };
 
 
-    explicit BusDataModel(QObject *parent = nullptr);
+    BusDataModel(QList<BusInformationData>  bdd = QList<BusInformationData>(), QObject *parent = nullptr);
     void setBusDataInformation(QList<BusInformationData> bdd);
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const override;

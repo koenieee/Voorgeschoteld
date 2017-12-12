@@ -24,7 +24,7 @@ public slots:
 
 private:
     Ui::DisplayAllBusInformation *  m_ui;
-    BusDataModel           m_qmlData;
+    BusDataModel        *    m_qmlData;
     ShowQmlWindow                   m_qmlWindow;
 };
 

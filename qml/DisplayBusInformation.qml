@@ -18,7 +18,7 @@ import QtQuick.Controls 1.4
             anchors.right: parent.right
             TableView {
                 anchors.fill: parent
-                model: BusDataModel{}
+                model: qmlData
                 TableViewColumn {
                     width: 150
                     role: "busLineNumber"

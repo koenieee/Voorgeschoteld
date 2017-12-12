@@ -1,14 +1,16 @@
 #include "BusDataModel.h"
 
-BusDataModel::BusDataModel(QObject *parent) :
-    QAbstractListModel(parent)
+BusDataModel::BusDataModel(QList<BusInformationData>  bdd, QObject *parent) :
+    QAbstractListModel(parent)//,
+//  m_currentBusInformationData(bdd)
 {
     beginResetModel();
-    m_currentBusInformationData = {
-         { "5", "Centraal Station", "11:30" },
+   m_currentBusInformationData = bdd;// {
+  /*        { "5", "Centraal Station", "11:30" },
          { "5", "Centraal Station", "11:32" },
          { "206", "Uithof","11:38"  }
      };
+     */
     busCount = 0;
     endResetModel();
 }
@@ -18,7 +20,7 @@ void BusDataModel::setBusDataInformation(QList<BusInformationData> bdd){
 
     beginResetModel();
     m_currentBusInformationData = bdd;
-    busCount = 0;
+   busCount = 0;
     endResetModel();
 
 
@@ -43,7 +45,7 @@ bool BusDataModel::setData(const QModelIndex &index, const QVariant &value, int 
    if (!hasIndex(index.row(), index.column(), index.parent()) || !value.isValid())
        return false;
 
-   BusInformationData &item = m_currentBusInformationData[index.row()];
+   BusInformationData item = m_currentBusInformationData[index.row()];
    if (role == BusDestinationRole) item.desination = value.toString();
    else if (role == BusLineNumberRole) item.lineNumber = value.toString();
    else if (role == BusTimeRole) item.lineNumber = value.toString();
@@ -91,7 +93,9 @@ bool BusDataModel::canFetchMore(const QModelIndex & /* index */) const
         return true;
     else
         return false;
+
 }
+
 
 void BusDataModel::fetchMore(const QModelIndex & /* index */)
 {
@@ -105,4 +109,5 @@ void BusDataModel::fetchMore(const QModelIndex & /* index */)
     endInsertRows();
 
     emit numberPopulated(itemsToFetch);
+
 }
